@@ -1,3 +1,6 @@
 [submodule "src/chainspec"]
 	path = src/chainspec
 	url = git@github.com:TalismanSociety/chainspecs.js.git
+[submodule "src/src/chaindata-js"]
+	path = src/src/chaindata-js
+	url = git@github.com:TalismanSociety/chaindata-js.git

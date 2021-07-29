@@ -1,7 +1,15 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@talisman/chaindata-js-demo",
+  "version": "0.0.1",
+  "description": "A Create React App demo to showcase the @talisman/chaindata-js repo",
+  "repository": "https://github.com/TalismanSociety/chaindata-js-demo.git",
+  "author": "Talisman Devs <devs@talisman.community>",
+  "keywords": [],
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/TalismanSociety/chaindata-js-demo/issues"
+  },
+  "homepage": "https://talisman.community",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

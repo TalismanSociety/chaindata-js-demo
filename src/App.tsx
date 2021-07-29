@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import chainspec from './chainspec'
+import chaindata from './chaindata-js'
 
 const App = () => {
   const [selectedChain, setSelectedChain] = useState()
@@ -10,14 +10,14 @@ const App = () => {
   const [rpcs, setRpcs] = useState([])
   
   const fetchChains = async () => {
-    const _chains = await chainspec.chains()
+    const _chains = await chaindata.chains()
     setChains(_chains)
     setSelectedChain(Object.keys(_chains)[0])
   }
 
   const fetchSelected = async id => {
     // lets fetch a single chain
-    const chain = await chainspec.chain(id)
+    const chain = await chaindata.chain(id)
 
     // set some UI values
     setImage(chain.asset?.logo)
