@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import chaindata from './chaindata-js'
+import chaindata from '@talismn/chaindata-js'
 
 const App = () => {
-  const [selectedChain, setSelectedChain] = useState()
-  const [chains, setChains] = useState({})
+  const [selectedChain, setSelectedChain] = useState<any>()
+  const [chains, setChains] = useState<any>({})
   const [image, setImage] = useState()
   const [name, setName] = useState()
   const [description, setDescription] = useState()
+  const [nativeToken, setNativeToken] = useState()
+  const [tokenDecimals, setTokenDecimals] = useState()
   const [rpcs, setRpcs] = useState([])
   
   const fetchChains = async () => {
@@ -15,7 +17,7 @@ const App = () => {
     setSelectedChain(Object.keys(_chains)[0])
   }
 
-  const fetchSelected = async id => {
+  const fetchSelected = async (id: string) => {
     // lets fetch a single chain
     const chain = await chaindata.chain(id)
 
@@ -23,29 +25,60 @@ const App = () => {
     setImage(chain.asset?.logo)
     setName(chain.name)
     setDescription(chain.description)
-
-    // fetch & set rpcs
-    const rpcs = chain.rpcs
-    setRpcs(rpcs)
+    setNativeToken(chain.nativeToken)
+    setTokenDecimals(chain.tokenDecimals)
+    setRpcs(chain.rpcs)
   }
 
-  useEffect(() => fetchChains(), [])
+  useEffect(() => {
+    fetchChains()
+  }, [])
 
-  useEffect(() => !!selectedChain && fetchSelected(selectedChain), [selectedChain])
+  useEffect(() => {
+    !!selectedChain && fetchSelected(selectedChain)
+  }, [selectedChain])
 
   return <div>
     <p>
       <select
         onChange={e => setSelectedChain(e.target.value)}
         >
-        {Object.keys(chains).map(id => <option value={id}>{chains[id]} ({id})</option>)}
+        {
+          Object.keys(chains).map((id: string) => 
+            <option 
+              key={id} 
+              value={id}
+              >
+              {chains[id]} ({id})
+            </option>
+          )
+        }
       </select>
     </p>
     <div>
-      <img src={image} alt='logo' style={{width: '4rem', height: '4rem'}}/>
-      <p>Name: {name}</p>
-      <p>Description: {description}</p>
-      {rpcs.map(rpc => <p key={rpc}>{rpc}</p>)}
+      <img 
+        src={image} 
+        alt='logo' 
+        style={{
+          width: '4rem', 
+          height: '4rem'
+        }}
+        />
+      <fieldset>
+        <legend>Basic info</legend>
+        <p>Name: {name}</p>
+        <p>Description: {description}</p>
+      </fieldset>
+      <fieldset>
+        <legend>Token info</legend>
+        <p>Native Token: {nativeToken}</p>
+        <p>Token Decimals: {tokenDecimals}</p>
+      </fieldset>
+      <fieldset>
+        <legend>RPCs</legend>
+        {rpcs.map(rpc => <p key={rpc}>{rpc}</p>)}
+      </fieldset>
+      
     </div>
   </div>
 }
