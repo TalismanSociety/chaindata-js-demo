@@ -1,3 +1,7 @@
+>
+> [This repo has been superseded by chaindata](https://github.com/TalismanSociety/chaindata)
+>
+
 # 📁 Chaindata JS Demo App
 This is a simple demo app using the chainspecs-js lib to showcase the basic functionality of discovering chains, fetching a chain and display chain assets.
 
